@@ -108,15 +108,16 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
           </p>
 
           <div className="product-detail-actions">
-            <a
-              href="https://validation.zphc.com"
+            <button
+              type="button"
               className="z-cta-link"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
               aria-label="ZPHC® New Validation System"
             >
               NEW VALIDATION SYSTEM
-            </a>
+            </button>
           </div>
 
           <p>
@@ -161,15 +162,16 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
           </p>
 
           <div className="product-detail-actions">
-            <a
-              href="https://anticounterfeiting.zphc.com"
+            <button
+              type="button"
               className="z-cta-link"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
               aria-label="ZPHC® Old Anti-Counterfeiting System"
             >
               OLD ANTI-COUNTERFEITING SYSTEM
-            </a>
+            </button>
           </div>
 
           <p>
