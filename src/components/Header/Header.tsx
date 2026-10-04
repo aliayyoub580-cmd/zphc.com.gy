@@ -4,13 +4,28 @@ import { TopNav } from './TopNav';
 import { WorldClocks } from './WorldClocks';
 import { VisitorStatus } from './VisitorStatus';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  currentPath?: string;
+  onNavigate?: (path: string) => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ currentPath = '/', onNavigate }) => {
   return (
     <header className="zphc-header">
       <div className="zphc-header-container">
         {/* Left: Brand Logo & 21 Country Flags Grid */}
         <div className="zphc-header-left">
-          <a href="/" className="zphc-logo-link" title="ZPHC Official Site">
+          <a
+            href="/"
+            className="zphc-logo-link"
+            title="ZPHC Official Site"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/');
+              }
+            }}
+          >
             <img
               src="/images/z-logo.svg"
               alt="ZPHC® protected trademark logo"
@@ -24,7 +39,7 @@ export const Header: React.FC = () => {
 
         {/* Center: Main Navigation Pill & Visitor Status Line */}
         <div className="zphc-header-center">
-          <TopNav />
+          <TopNav currentPath={currentPath} onNavigate={onNavigate} />
           <VisitorStatus />
         </div>
 

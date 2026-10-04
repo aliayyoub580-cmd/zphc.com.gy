@@ -49,6 +49,26 @@ app.post('/api/verify', (req: Request, res: Response) => {
   });
 });
 
+// Contact Form submission handler (mimicking original mail.php)
+app.post(['/mail.php', '/api/contact'], (req: Request, res: Response) => {
+  const { country, email, emailConfirm, message, inquiryType } = req.body;
+
+  if (!country || !email || !message) {
+    return res.status(400).json({ success: false, message: 'Please complete all required fields.' });
+  }
+
+  if (emailConfirm && email.trim().toLowerCase() !== emailConfirm.trim().toLowerCase()) {
+    return res.status(400).json({ success: false, message: 'Email addresses do not match.' });
+  }
+
+  console.log(`[Contact Submission] Country: ${country}, Email: ${email}, Type: ${inquiryType || 'General'}, Time: ${new Date().toISOString()}`);
+
+  return res.json({
+    success: true,
+    message: 'Thank you! Your message has been sent successfully. The ZPHC® team will respond shortly.',
+  });
+});
+
 // Serve frontend build in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../dist')));

@@ -33,9 +33,10 @@ const SOCIAL_LINKS = [
 
 interface FooterProps {
   onOpenLegalNotice?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenLegalNotice }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenLegalNotice, onNavigate }) => {
   return (
     <footer className="zphc-footer">
       <div className="zphc-footer-container">
@@ -80,7 +81,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalNotice }) => {
 
         {/* Footer Logo */}
         <div className="zphc-footer-logo-wrap">
-          <a href="/" title="ZPHC Home">
+          <a
+            href="/"
+            title="ZPHC Home"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/');
+              }
+            }}
+          >
             <img
               src="/images/logo-footer.svg"
               alt="ZPHC® footer logo"
@@ -100,7 +110,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalNotice }) => {
                   href={link.href}
                   className="zphc-footer-link"
                   onClick={(e) => {
-                    if (link.name === 'Terms' || link.name === 'Cookie Policy') {
+                    if (link.name === 'Contact' && onNavigate) {
+                      e.preventDefault();
+                      onNavigate('/contact/');
+                    } else if (link.name === 'Verification' && onNavigate) {
+                      e.preventDefault();
+                      onNavigate('/verificationsystems/');
+                    } else if (link.name === 'Welcome' && onNavigate) {
+                      e.preventDefault();
+                      onNavigate('/');
+                    } else if (link.name === 'Terms' || link.name === 'Cookie Policy') {
                       if (onOpenLegalNotice) {
                         e.preventDefault();
                         onOpenLegalNotice();
@@ -121,11 +140,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalNotice }) => {
             <a
               key={soc.name}
               href={soc.href}
-              target="_blank"
+              target={soc.href.startsWith('http') ? '_blank' : '_self'}
               rel="noopener noreferrer"
               className="zphc-social-btn"
               title={`ZPHC on ${soc.name}`}
               aria-label={soc.name}
+              onClick={(e) => {
+                if (soc.href === '/contact/' && onNavigate) {
+                  e.preventDefault();
+                  onNavigate('/contact/');
+                }
+              }}
             >
               <img
                 src={soc.icon}

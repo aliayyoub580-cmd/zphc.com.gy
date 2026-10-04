@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Home,
   Box,
@@ -13,10 +13,31 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
-export const TopNav: React.FC = () => {
+interface TopNavProps {
+  currentPath?: string;
+  onNavigate?: (path: string) => void;
+}
+
+export const TopNav: React.FC<TopNavProps> = ({ currentPath = '/', onNavigate }) => {
   const { t } = useLanguage();
-  const [activeId, setActiveId] = useState<string>('home');
+  const [activeId, setActiveId] = useState<string>(() =>
+    currentPath.includes('contact')
+      ? 'contact'
+      : currentPath.includes('verification')
+      ? 'verification'
+      : 'home'
+  );
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    if (currentPath.includes('contact')) {
+      setActiveId('contact');
+    } else if (currentPath.includes('verification')) {
+      setActiveId('verification');
+    } else if (currentPath === '/' || currentPath === '') {
+      setActiveId('home');
+    }
+  }, [currentPath]);
 
   const navItems = [
     { id: 'home', name: t.nav.home, href: '/', icon: <Home size={20} strokeWidth={2} /> },
@@ -28,6 +49,23 @@ export const TopNav: React.FC = () => {
     { id: 'blog', name: t.nav.blog, href: '/blog/', icon: <Send size={20} strokeWidth={2} /> },
     { id: 'contact', name: t.nav.contact, href: '/contact/', icon: <CheckCircle size={20} strokeWidth={2} /> },
   ];
+
+  const handleItemClick = (e: React.MouseEvent, item: { id: string; href: string }) => {
+    setActiveId(item.id);
+    if (item.id === 'contact' && onNavigate) {
+      e.preventDefault();
+      onNavigate('/contact/');
+    } else if (item.id === 'verification' && onNavigate) {
+      e.preventDefault();
+      onNavigate('/verificationsystems/');
+    } else if (item.id === 'home' && onNavigate) {
+      e.preventDefault();
+      onNavigate('/');
+    } else if (item.href === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
@@ -41,13 +79,7 @@ export const TopNav: React.FC = () => {
                 <a
                   href={item.href}
                   className={`zphc-nav-link ${isActive ? 'is-active' : ''}`}
-                  onClick={(e) => {
-                    setActiveId(item.id);
-                    if (item.href === '/') {
-                      e.preventDefault();
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                  }}
+                  onClick={(e) => handleItemClick(e, item)}
                 >
                   <span className="zphc-nav-icon">{item.icon}</span>
                   <span className="zphc-nav-label">{item.name}</span>
@@ -91,8 +123,8 @@ export const TopNav: React.FC = () => {
                     <a
                       href={item.href}
                       className={`zphc-mobile-nav-link ${isActive ? 'is-active' : ''}`}
-                      onClick={() => {
-                        setActiveId(item.id);
+                      onClick={(e) => {
+                        handleItemClick(e, item);
                         setMobileOpen(false);
                       }}
                     >
