@@ -135,14 +135,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
     <main className={`tmpl-home zphc-contact-page ${isRtl ? 'is-rtl' : ''}`}>
       {/* Breadcrumb Header Bar */}
       <div className="zphc-breadcrumb-wrapper">
-        <div className="zphc-content-container">
-          <h1 className="zphc-page-title">
+        <div className="container breadcrumb__container">
+          <h1 className="page-title">
             Contact ZPHC<span className="reg-mark">&reg;</span>
           </h1>
-          <div className="zphc-breadcrumb-trail">
+          <div className="breadcrumb">
             <a
               href="/"
-              className="zphc-breadcrumb-link"
+              className="breadcrumb__link"
               onClick={(e) => {
                 e.preventDefault();
                 onNavigateHome();
@@ -151,7 +151,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
               {t.nav.home}
             </a>{' '}
             /{' '}
-            <span className="zphc-breadcrumb-active">{t.nav.contact}</span>
+            <span className="breadcrumb__active">{t.nav.contact}</span>
           </div>
         </div>
       </div>

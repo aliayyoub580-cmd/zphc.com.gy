@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, CheckCircle2, AlertTriangle, Loader2 } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Loader2 } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface VerificationPageProps {
@@ -63,14 +63,14 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
     <main className={`tmpl-home trust-main zphc-verification-page ${isRtl ? 'is-rtl' : ''}`} id="main-content">
       {/* Breadcrumb Header Bar */}
       <div className="zphc-breadcrumb-wrapper">
-        <div className="zphc-content-container">
-          <div className="zphc-page-title">
+        <div className="container breadcrumb__container">
+          <div className="page-title">
             Validation &amp; Authenticity
           </div>
-          <div className="zphc-breadcrumb-trail">
+          <div className="breadcrumb">
             <a
               href="/"
-              className="zphc-breadcrumb-link"
+              className="breadcrumb__link"
               onClick={(e) => {
                 e.preventDefault();
                 onNavigateHome();
@@ -79,13 +79,13 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
               {t.nav.home}
             </a>{' '}
             /{' '}
-            <span className="zphc-breadcrumb-active">Validation &amp; Authenticity</span>
+            <span className="breadcrumb__active">Validation &amp; Authenticity</span>
           </div>
         </div>
       </div>
 
       {/* Main Verification Document Article */}
-      <article className="zphc-content-container document-style z-trust-page">
+      <article className="container document-style z-trust-page">
         <h1 className="zphc-trust-page-heading">
           ZPHC<span className="reg-mark">&reg;</span> Validation &amp; Authenticity
         </h1>
@@ -103,8 +103,8 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
             />
           </figure>
 
-          <p className="z-trust-card-desc">
-            Please carefully scratch off this silver coating from the back of Your product. Under the silver coating You will find the validation code which may consists of letters, special symbols and numbers looking like that &ldquo;<span className="z-code-sample">8@MNZ8X@8DW</span>&rdquo;, please proceed here:
+          <p>
+            Please carefully scratch off this silver coating from the back of Your product. Under the silver coating You will find the validation code which may consists of letters, special symbols and numbers looking like that &ldquo;<span>8@MNZ8X@8DW</span>&rdquo;, please proceed here:
           </p>
 
           <div className="product-detail-actions">
@@ -115,15 +115,14 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
               rel="noopener noreferrer"
               aria-label="ZPHC® New Validation System"
             >
-              <span>NEW VALIDATION SYSTEM</span>
-              <ExternalLink size={16} className="z-cta-icon" />
+              NEW VALIDATION SYSTEM
             </a>
           </div>
 
-          <p className="z-trust-card-subnote">
+          <p>
             Opens the official ZPHC<span className="reg-mark">&reg;</span> validation system at validation.zphc.com in a new tab.
           </p>
-          <p className="z-trust-card-validity">
+          <p>
             This system works until 2031–2032.
           </p>
         </section>
@@ -156,9 +155,9 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
             />
           </figure>
 
-          <p className="z-trust-card-desc">
+          <p>
             Please find the serial number under a scratch line.<br />
-            If it looks, for example like &ldquo;<span className="z-code-sample">5XTC-S35E-N2TA-68HN</span>&rdquo; in capital letters only, please follow this link:
+            If it looks, for example like &ldquo;<span>5XTC-S35E-N2TA-68HN</span>&rdquo; in capital letters only, please follow this link:
           </p>
 
           <div className="product-detail-actions">
@@ -169,15 +168,14 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({ onNavigateHo
               rel="noopener noreferrer"
               aria-label="ZPHC® Old Anti-Counterfeiting System"
             >
-              <span>OLD ANTI-COUNTERFEITING SYSTEM</span>
-              <ExternalLink size={16} className="z-cta-icon" />
+              OLD ANTI-COUNTERFEITING SYSTEM
             </a>
           </div>
 
-          <p className="z-trust-card-subnote">
+          <p>
             Opens the official ZPHC<span className="reg-mark">&reg;</span> anti-counterfeiting system at anticounterfeiting.zphc.com in a new tab.
           </p>
-          <p className="z-trust-card-validity">
+          <p>
             This system works until 2029.
           </p>
         </section>
