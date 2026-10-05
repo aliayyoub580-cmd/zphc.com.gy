@@ -1320,6 +1320,7 @@ a {
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
+    flex-shrink: 0 !important;
     margin-bottom: 14px !important;
   }
 
@@ -1328,62 +1329,71 @@ a {
     width: 100% !important;
     max-width: 375px !important;
     margin: 0 auto !important;
-    padding: 10px 12px !important;
-    border-radius: 999px !important;
-    overflow: hidden !important;
-    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    padding: 14px 10px !important;
+    border-radius: 70px !important;
+    overflow: visible !important;
     background:
-      radial-gradient(90% 140% at 50% -20%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.22) 28%, rgba(44, 97, 150, 0) 62%),
+      radial-gradient(90% 140% at 50% -20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.18) 28%, rgba(44, 97, 150, 0) 62%),
       linear-gradient(180deg, #4480b6 0%, #356fa6 45%, #2c6196 100%) !important;
-    box-shadow: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+    box-shadow: 0 4px 16px rgba(20, 60, 110, 0.22) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.65) !important;
     box-sizing: border-box !important;
+    flex-shrink: 0 !important;
   }
 
   .zphc-nav-list {
     display: grid !important;
     grid-template-columns: repeat(6, 1fr) !important;
-    row-gap: 6px !important;
+    row-gap: 8px !important;
     column-gap: 0 !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
+    box-sizing: border-box !important;
   }
 
   /* Row 1: Home, Products, Verification */
   .zphc-nav-item:nth-child(1) {
     grid-column: 1 / span 2 !important;
+    grid-row: 1 !important;
   }
 
   .zphc-nav-item:nth-child(2) {
     grid-column: 3 / span 2 !important;
+    grid-row: 1 !important;
   }
 
   .zphc-nav-item:nth-child(3) {
     grid-column: 5 / span 2 !important;
+    grid-row: 1 !important;
   }
 
   /* Row 2: Team, Anti-Doping, Tools */
   .zphc-nav-item:nth-child(4) {
     grid-column: 1 / span 2 !important;
+    grid-row: 2 !important;
   }
 
   .zphc-nav-item:nth-child(5) {
     grid-column: 3 / span 2 !important;
+    grid-row: 2 !important;
   }
 
   .zphc-nav-item:nth-child(6) {
     grid-column: 5 / span 2 !important;
+    grid-row: 2 !important;
   }
 
   /* Row 3: Blog, Contact (centered in middle columns 2-3 and 4-5) */
   .zphc-nav-item:nth-child(7) {
     grid-column: 2 / span 2 !important;
+    grid-row: 3 !important;
   }
 
   .zphc-nav-item:nth-child(8) {
     grid-column: 4 / span 2 !important;
+    grid-row: 3 !important;
   }
 
   .zphc-nav-item {
@@ -1393,6 +1403,7 @@ a {
     position: relative !important;
     box-sizing: border-box !important;
     padding: 0 !important;
+    width: 100% !important;
   }
 
   /* Subtle vertical divider lines between columns */
@@ -1415,15 +1426,16 @@ a {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 3px !important;
-    padding: 5px 2px !important;
+    gap: 4px !important;
+    padding: 6px 4px !important;
     width: 100% !important;
-    min-height: 44px !important;
+    min-height: 46px !important;
     border-radius: 999px !important;
     color: #ffffff !important;
     text-decoration: none !important;
     box-shadow: none !important;
     transition: all 0.15s ease !important;
+    box-sizing: border-box !important;
   }
 
   .zphc-nav-icon {
@@ -1436,8 +1448,8 @@ a {
   }
 
   .zphc-nav-icon svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 19px !important;
+    height: 19px !important;
   }
 
   .zphc-nav-label {
@@ -1455,8 +1467,8 @@ a {
     background: #ffffff !important;
     color: var(--color-primary) !important;
     border-radius: 999px !important;
-    box-shadow: none !important;
-    padding: 5px 8px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    padding: 6px 10px !important;
   }
 
   .zphc-nav-link.is-active .zphc-nav-icon,
