@@ -1870,6 +1870,119 @@ a {
   box-shadow: 0 0 0 3px rgba(44, 97, 150, 0.15), 0 4px 12px rgba(44, 97, 150, 0.08);
 }
 
+/* Custom Select Dropdown - Contained 100% inside screen/container */
+.zphc-custom-select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.zphc-select-trigger {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #17385c;
+  background: #ffffff;
+  border: 2px solid rgba(36, 80, 132, 0.22);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(44, 97, 150, 0.04);
+  transition: all 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+}
+
+.zphc-select-trigger.is-placeholder .zphc-select-trigger-text {
+  color: #556677;
+}
+
+.zphc-select-trigger:focus,
+.zphc-select-trigger.is-open {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(44, 97, 150, 0.15), 0 4px 12px rgba(44, 97, 150, 0.08);
+}
+
+.zphc-select-trigger-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 8px;
+}
+
+.zphc-select-chevron {
+  flex-shrink: 0;
+  color: #245084;
+  transition: transform 0.2s ease;
+}
+
+.zphc-select-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.zphc-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  border: 2px solid rgba(36, 80, 132, 0.25);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(10, 30, 60, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+  z-index: 150;
+  overflow-y: auto;
+  max-height: 280px;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.zphc-select-option {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  font-size: 14.5px;
+  line-height: 1.35;
+  color: #17385c;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  display: block;
+  white-space: normal;
+  word-break: break-word;
+  transition: background 0.15s ease, color 0.15s ease;
+  margin-bottom: 2px;
+}
+
+.zphc-select-option:last-child {
+  margin-bottom: 0;
+}
+
+.zphc-select-option:hover,
+.zphc-select-option:focus {
+  background: rgba(44, 97, 150, 0.1);
+  color: var(--color-primary);
+  outline: none;
+}
+
+.zphc-select-option.is-selected {
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
 .zphc-input-field.is-invalid {
   border-color: #c91535 !important;
   background: #fff7f8;

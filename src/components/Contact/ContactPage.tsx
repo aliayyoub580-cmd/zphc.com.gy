@@ -1,6 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Check, ShieldCheck, AlertCircle, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Check, ShieldCheck, AlertCircle, Loader2, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+
+const INQUIRY_OPTIONS = [
+  { value: '', label: 'Select inquiry type' },
+  { value: 'Product inquiry', label: 'Product inquiry' },
+  { value: 'Team/media submission', label: 'Team/media submission' },
+  { value: 'Collaboration proposal', label: 'Collaboration proposal' },
+  { value: 'Privacy/legal request', label: 'Privacy/legal request' },
+  { value: 'Report suspicious sellers or counterfeit claims', label: 'Report suspicious sellers or counterfeit claims' },
+  { value: 'General support', label: 'General support' },
+];
 
 interface ContactPageProps {
   onNavigateHome: () => void;
@@ -28,6 +38,19 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
     gdprAgreement: false,
     agreement: false,
   });
+
+  const [inquiryDropdownOpen, setInquiryDropdownOpen] = useState(false);
+  const inquiryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (inquiryRef.current && !inquiryRef.current.contains(e.target as Node)) {
+        setInquiryDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const [turnstileVerified, setTurnstileVerified] = useState(false);
   const [turnstileLoading, setTurnstileLoading] = useState(false);
@@ -451,24 +474,64 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                 <label className="zphc-form-badge" htmlFor="inquiryType">
                   Inquiry type <span className="zphc-required">*</span>
                 </label>
-                <select
-                  id="inquiryType"
-                  name="inquiryType"
-                  className="zphc-select-field"
-                  value={formData.inquiryType}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="">Select inquiry type</option>
-                  <option value="Product inquiry">Product inquiry</option>
-                  <option value="Team/media submission">Team/media submission</option>
-                  <option value="Collaboration proposal">Collaboration proposal</option>
-                  <option value="Privacy/legal request">Privacy/legal request</option>
-                  <option value="Report suspicious sellers or counterfeit claims">
-                    Report suspicious sellers or counterfeit claims
-                  </option>
-                  <option value="General support">General support</option>
-                </select>
+                <div className="zphc-custom-select-wrapper" ref={inquiryRef}>
+                  <button
+                    type="button"
+                    id="inquiryType"
+                    className={`zphc-select-trigger ${inquiryDropdownOpen ? 'is-open' : ''} ${!formData.inquiryType ? 'is-placeholder' : ''}`}
+                    onClick={() => setInquiryDropdownOpen(!inquiryDropdownOpen)}
+                    aria-haspopup="listbox"
+                    aria-expanded={inquiryDropdownOpen}
+                  >
+                    <span className="zphc-select-trigger-text">
+                      {formData.inquiryType || 'Select inquiry type'}
+                    </span>
+                    <ChevronDown
+                      size={18}
+                      className={`zphc-select-chevron ${inquiryDropdownOpen ? 'is-open' : ''}`}
+                    />
+                  </button>
+
+                  {inquiryDropdownOpen && (
+                    <div className="zphc-select-dropdown" role="listbox">
+                      {INQUIRY_OPTIONS.map((opt) => {
+                        const isSelected = formData.inquiryType === opt.value;
+                        return (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            role="option"
+                            aria-selected={isSelected}
+                            className={`zphc-select-option ${isSelected ? 'is-selected' : ''}`}
+                            onClick={() => {
+                              setFormData((prev) => ({ ...prev, inquiryType: opt.value }));
+                              setInquiryDropdownOpen(false);
+                            }}
+                          >
+                            {opt.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Hidden field for form validation */}
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.inquiryType}
+                    onChange={() => {}}
+                    required
+                    style={{
+                      position: 'absolute',
+                      opacity: 0,
+                      height: 0,
+                      width: 0,
+                      pointerEvents: 'none',
+                    }}
+                  />
+                </div>
               </div>
 
               {/* Row 8: Message Guidance & Textarea */}
