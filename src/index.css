@@ -4,13 +4,13 @@
    ========================================================================== */
 
 :root {
-  --color-primary: #1b4975;
-  --color-primary-dark: #16365f;
-  --color-primary-deep: #0d2845;
-  --color-primary-hover: #229ed9;
+  --color-primary: #2C6196;
+  --color-primary-dark: #22507d;
+  --color-primary-deep: #16365f;
+  --color-primary-hover: #3572ad;
   --color-accent-blue: #2aabee;
   --color-accent-red: #cf2330;
-  --color-text-main: #1b3d68;
+  --color-text-main: #2C6196;
   --color-text-muted: #5a738e;
   --color-border-subtle: #bdd2e6;
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -49,8 +49,8 @@ body::before {
   background-image: url('/images/background-parallax-7-tile.webp'), url('/images/background-parallax-7-tile.png');
   background-repeat: repeat;
   background-position: center 0;
-  background-size: clamp(220px, 46vw, 420px) auto;
-  opacity: 0.07;
+  background-size: clamp(200px, 40vw, 400px) auto;
+  opacity: 0.03;
   pointer-events: none;
   z-index: 0;
 }
@@ -91,14 +91,19 @@ a {
 .zphc-header-container {
   max-width: 1360px;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "brand nav clocks"
+    "brand status clocks";
+  align-items: center;
+  gap: 8px 16px;
 }
 
 /* --- Left: Logo & 21 Country Circles --- */
 .zphc-header-left {
+  grid-area: brand;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -128,7 +133,7 @@ a {
   height: 26px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(27, 73, 117, 0.35);
+  border: 1px solid rgba(44, 97, 150, 0.35);
   color: var(--color-primary);
   font-size: 11px;
   font-weight: 700;
@@ -153,26 +158,30 @@ a {
   border-color: var(--color-primary);
 }
 
-/* --- Center: Capsule Navigation Bar & Status Chips --- */
+/* --- Center: Navigation Bar & Status Chips --- */
 .zphc-header-center {
+  grid-area: nav;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
+  justify-content: center;
+}
+
+.zphc-header-status {
+  grid-area: status;
+  display: flex;
+  justify-content: center;
 }
 
 .zphc-navbar-pill {
-  background: linear-gradient(180deg, #2b679f 0%, #1e5284 45%, #153c63 100%);
+  background:
+    radial-gradient(90% 150% at 50% -26%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.22) 28%, rgba(44, 97, 150, 0) 62%),
+    linear-gradient(180deg, #4480b6 0%, #356fa6 45%, #2c6196 100%);
   border-radius: 9999px;
   padding: 4px 6px;
-  box-shadow:
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.45),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
-    0 4px 15px rgba(10, 30, 60, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.65);
   display: inline-flex;
   align-items: center;
+  overflow: hidden;
 }
 
 .zphc-nav-list {
@@ -235,21 +244,19 @@ a {
 
 .zphc-nav-link.is-active {
   background: linear-gradient(180deg, #ffffff 0%, #edf3f9 100%);
-  color: #174372;
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 #ffffff;
+  color: var(--color-primary);
+  box-shadow: none;
   font-weight: 800;
   padding: 6px 20px 7px;
 }
 
 .zphc-nav-link.is-active .zphc-nav-icon {
-  color: #174372;
+  color: var(--color-primary);
   filter: none;
 }
 
 .zphc-nav-link.is-active .zphc-nav-label {
-  color: #174372;
+  color: var(--color-primary);
   text-shadow: none;
 }
 
@@ -297,6 +304,7 @@ a {
 
 /* --- Right: 9 World Clocks Widget (3x3 Matrix) --- */
 .zphc-header-right {
+  grid-area: clocks;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -632,7 +640,7 @@ a {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(27, 73, 117, 0.85);
+  background: rgba(44, 97, 150, 0.85);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
@@ -645,7 +653,7 @@ a {
 }
 
 .zphc-hero-play-toggle:hover {
-  background: rgba(27, 73, 117, 1);
+  background: rgba(44, 97, 150, 1);
   transform: scale(1.08);
 }
 
@@ -1174,7 +1182,7 @@ a {
 
 .zphc-btn-disagree:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(27, 73, 117, 0.4);
+  box-shadow: 0 6px 16px rgba(44, 97, 150, 0.4);
 }
 
 /* ==========================================================================
@@ -1183,13 +1191,7 @@ a {
 
 @media (max-width: 1200px) {
   .zphc-header-container {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .zphc-header-left,
-  .zphc-header-right {
-    margin-bottom: 6px;
+    gap: 8px 12px;
   }
 
   .zphc-hero-title {
@@ -1198,18 +1200,342 @@ a {
 }
 
 @media (max-width: 950px) {
+  .zphc-header {
+    padding: 14px 12px 8px !important;
+  }
+
   .zphc-header-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    margin: 0 auto !important;
+  }
+
+  /* 1. Header Left: Brand Logo & 21 Country Circles */
+  .zphc-header-left {
+    order: 1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-bottom: 14px !important;
+  }
+
+  .zphc-logo-link {
+    margin: 0 auto 10px !important;
+    display: block !important;
+    text-align: center !important;
+  }
+
+  .zphc-brand-logo {
+    height: 38px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .zphc-country-grid {
+    display: grid !important;
+    grid-template-columns: repeat(7, 26px) !important;
+    grid-gap: 4px !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+  }
+
+  .zphc-country-circle {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 50% !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(44, 97, 150, 0.35) !important;
+    background: rgba(255, 255, 255, 0.75) !important;
+    color: var(--color-primary) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 2. Header Center: Top Navigation Capsule (3-Row Grid) */
+  .zphc-header-center {
+    order: 2 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 14px !important;
   }
 
   .zphc-navbar-pill {
-    display: none;
+    display: block !important;
+    width: 100% !important;
+    max-width: 342px !important;
+    margin: 0 auto !important;
+    padding: 10px 12px !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    background:
+      radial-gradient(90% 140% at 50% -20%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.22) 28%, rgba(44, 97, 150, 0) 62%),
+      linear-gradient(180deg, #4480b6 0%, #356fa6 45%, #2c6196 100%) !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+    box-sizing: border-box !important;
   }
 
-  .zphc-mobile-menu-toggle {
-    display: flex;
+  .zphc-nav-list {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    row-gap: 6px !important;
+    column-gap: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  /* Row 1: Home, Products, Verification */
+  .zphc-nav-item:nth-child(1) {
+    grid-column: 1 / span 2 !important;
+  }
+
+  .zphc-nav-item:nth-child(2) {
+    grid-column: 3 / span 2 !important;
+  }
+
+  .zphc-nav-item:nth-child(3) {
+    grid-column: 5 / span 2 !important;
+  }
+
+  /* Row 2: Team, Anti-Doping, Tools */
+  .zphc-nav-item:nth-child(4) {
+    grid-column: 1 / span 2 !important;
+  }
+
+  .zphc-nav-item:nth-child(5) {
+    grid-column: 3 / span 2 !important;
+  }
+
+  .zphc-nav-item:nth-child(6) {
+    grid-column: 5 / span 2 !important;
+  }
+
+  /* Row 3: Blog, Contact (centered in middle columns 2-3 and 4-5) */
+  .zphc-nav-item:nth-child(7) {
+    grid-column: 2 / span 2 !important;
+  }
+
+  .zphc-nav-item:nth-child(8) {
+    grid-column: 4 / span 2 !important;
+  }
+
+  .zphc-nav-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+  }
+
+  /* Subtle vertical divider lines between columns */
+  .zphc-nav-item:nth-child(1)::after,
+  .zphc-nav-item:nth-child(2)::after,
+  .zphc-nav-item:nth-child(4)::after,
+  .zphc-nav-item:nth-child(5)::after,
+  .zphc-nav-item:nth-child(7)::after {
+    content: "" !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 15% !important;
+    height: 70% !important;
+    width: 1px !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+  }
+
+  .zphc-nav-link {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 5px 2px !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    border-radius: 999px !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    transition: all 0.15s ease !important;
+  }
+
+  .zphc-nav-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #ffffff !important;
+    margin-bottom: 2px !important;
+    filter: none !important;
+  }
+
+  .zphc-nav-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .zphc-nav-label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    letter-spacing: -0.2px !important;
+    line-height: 1.1 !important;
+    text-align: center !important;
+  }
+
+  /* Active Navigation Tab (White Pill) */
+  .zphc-nav-link.is-active {
+    background: #ffffff !important;
+    color: var(--color-primary) !important;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+    padding: 5px 8px !important;
+  }
+
+  .zphc-nav-link.is-active .zphc-nav-icon,
+  .zphc-nav-link.is-active .zphc-nav-icon svg,
+  .zphc-nav-link.is-active .zphc-nav-label {
+    color: var(--color-primary) !important;
+    text-shadow: none !important;
+  }
+
+  /* 3. Header Right: 9 World Clocks Widget */
+  .zphc-header-right {
+    order: 3 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+  }
+
+  .zphc-world-clocks-panel {
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(44, 97, 150, 0.18) !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    width: 100% !important;
+    max-width: 375px !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+  }
+
+  .zphc-clocks-matrix {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .zphc-clocks-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  .zphc-clock-chip {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    justify-content: flex-start !important;
+  }
+
+  .zphc-clock-face {
+    width: 22px !important;
+    height: 22px !important;
+    border: 1.5px solid var(--color-primary) !important;
+    flex-shrink: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .zphc-clock-info {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    line-height: 1.15 !important;
+  }
+
+  .zphc-clock-city {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: var(--color-primary) !important;
+  }
+
+  .zphc-clock-digits {
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    color: var(--color-primary) !important;
+  }
+
+  /* 4. Header Status: 4 Full-Width Pill Badges */
+  .zphc-header-status {
+    order: 4 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+  }
+
+  .zphc-visitor-metrics-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 375px !important;
+    margin: 0 auto !important;
+    gap: 5px !important;
+  }
+
+  .zphc-metric-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 5px !important;
+  }
+
+  .zphc-chip-welcome,
+  .zphc-chip-info {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    border: 1px solid rgba(44, 97, 150, 0.18) !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+    color: var(--color-primary) !important;
+    font-weight: 700 !important;
+    box-sizing: border-box !important;
+    box-shadow: none !important;
+    line-height: 1.3 !important;
+  }
+
+  .zphc-chip-welcome {
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    color: var(--color-primary) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
   }
 
   .zphc-hero-card {
@@ -1233,43 +1559,33 @@ a {
   }
 }
 
-@media (max-width: 600px) {
-  .zphc-header {
-    padding: 10px 8px 4px;
-  }
-
+@media (max-width: 400px) {
   .zphc-country-grid {
-    grid-template-columns: repeat(7, 24px);
-    grid-gap: 3px;
+    grid-template-columns: repeat(7, 23px) !important;
+    grid-gap: 3px !important;
   }
 
   .zphc-country-circle {
-    width: 24px;
-    height: 24px;
-    font-size: 9px;
+    width: 23px !important;
+    height: 23px !important;
+    font-size: 9.5px !important;
   }
 
-  .zphc-clocks-row {
-    gap: 8px;
+  .zphc-navbar-pill {
+    padding: 10px 10px !important;
   }
 
-  .zphc-clock-chip {
-    min-width: 62px;
+  .zphc-nav-label {
+    font-size: 10px !important;
   }
 
-  .zphc-clock-face {
-    width: 18px;
-    height: 18px;
+  .zphc-nav-icon svg {
+    width: 16px !important;
+    height: 16px !important;
   }
+}
 
-  .zphc-clock-city {
-    font-size: 11px;
-  }
-
-  .zphc-clock-digits {
-    font-size: 9px;
-  }
-
+@media (max-width: 600px) {
   .zphc-hero-card {
     height: 340px;
     border-radius: 16px;
@@ -1424,7 +1740,7 @@ a {
   padding: 38px 42px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(20, 50, 90, 0.08);
-  border: 1px solid rgba(27, 73, 117, 0.12);
+  border: 1px solid rgba(44, 97, 150, 0.12);
 }
 
 .zphc-form-group {
@@ -1470,7 +1786,7 @@ a {
   background: #ffffff;
   border: 2px solid rgba(36, 80, 132, 0.22);
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(27, 73, 117, 0.04);
+  box-shadow: 0 2px 8px rgba(44, 97, 150, 0.04);
   transition: all 0.2s ease;
   outline: none;
   box-sizing: border-box;
@@ -1480,7 +1796,7 @@ a {
 .zphc-select-field:focus,
 .zphc-textarea-field:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(27, 73, 117, 0.15), 0 4px 12px rgba(27, 73, 117, 0.08);
+  box-shadow: 0 0 0 3px rgba(44, 97, 150, 0.15), 0 4px 12px rgba(44, 97, 150, 0.08);
 }
 
 .zphc-input-field.is-invalid {
@@ -1560,7 +1876,7 @@ a {
   color: #1c3d61;
   font-size: 13.5px;
   line-height: 1.5;
-  box-shadow: 0 4px 15px rgba(27, 73, 117, 0.05);
+  box-shadow: 0 4px 15px rgba(44, 97, 150, 0.05);
 }
 
 .zphc-guidance-intro {
@@ -1612,7 +1928,7 @@ a {
 
 .zphc-turnstile-box:hover {
   border-color: #9cb6d1;
-  box-shadow: 0 3px 10px rgba(27, 73, 117, 0.08);
+  box-shadow: 0 3px 10px rgba(44, 97, 150, 0.08);
 }
 
 .zphc-turnstile-box.is-verified {
@@ -1726,7 +2042,7 @@ a {
   padding: 50px 30px;
   background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 10px 35px rgba(27, 73, 117, 0.1);
+  box-shadow: 0 10px 35px rgba(44, 97, 150, 0.1);
   max-width: 600px;
   margin: 20px auto;
 }
@@ -1775,7 +2091,7 @@ a {
 .zphc-btn-pill.secondary {
   background: #eef3f8;
   color: var(--color-primary);
-  border: 1px solid rgba(27, 73, 117, 0.2);
+  border: 1px solid rgba(44, 97, 150, 0.2);
   padding: 10px 24px;
   border-radius: 30px;
   font-weight: 700;
@@ -1878,7 +2194,7 @@ a {
   flex-direction: column !important;
   margin: 0 0 2rem 0 !important;
   padding: 1.8rem 2.2rem 2.4rem !important;
-  border: 1px solid rgba(27, 73, 117, 0.16) !important;
+  border: 1px solid rgba(44, 97, 150, 0.16) !important;
   border-radius: 1.4rem !important;
   background: #ffffff !important;
   box-shadow: none !important;

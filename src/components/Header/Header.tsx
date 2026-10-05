@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath = '/', onNavigate })
   return (
     <header className="zphc-header">
       <div className="zphc-header-container">
-        {/* Left: Brand Logo & 21 Country Flags Grid */}
+        {/* Brand: Logo & 21 Country Flags Grid */}
         <div className="zphc-header-left">
           <a
             href="/"
@@ -37,15 +37,19 @@ export const Header: React.FC<HeaderProps> = ({ currentPath = '/', onNavigate })
           <LanguageFlags />
         </div>
 
-        {/* Center: Main Navigation Pill & Visitor Status Line */}
+        {/* Center: Main Navigation Pill */}
         <div className="zphc-header-center">
           <TopNav currentPath={currentPath} onNavigate={onNavigate} />
-          <VisitorStatus />
         </div>
 
         {/* Right: 9 World Clocks Widget */}
         <div className="zphc-header-right">
           <WorldClocks />
+        </div>
+
+        {/* Status: Visitor Status Lines */}
+        <div className="zphc-header-status">
+          <VisitorStatus />
         </div>
       </div>
     </header>
