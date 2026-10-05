@@ -1,129 +1,243 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface LegalModalProps {
   isOpen: boolean;
   onAccept: () => void;
-  onDisagree: () => void;
+  onDisagree?: () => void;
 }
 
-export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onAccept, onDisagree }) => {
+export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onAccept }) => {
+  const [isAgeConfirmed, setIsAgeConfirmed] = useState(false);
+  const [showFullNotice, setShowFullNotice] = useState(false);
+  const [showCookiePrefs, setShowCookiePrefs] = useState(false);
+  const [optionalCookies, setOptionalCookies] = useState(false);
+
   if (!isOpen) return null;
 
+  const handleAccept = () => {
+    onAccept();
+  };
+
+  const handleSaveCookiePrefs = () => {
+    localStorage.setItem('zphc_optional_cookies', optionalCookies ? 'true' : 'false');
+    onAccept();
+  };
+
   return (
-    <div className="zphc-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="legal-notice-title">
-      <div className="zphc-modal-backdrop" onClick={onAccept} />
-      <div className="zphc-modal-card">
-        {/* Panda Logo */}
-        <div className="zphc-modal-logo">
+    <div
+      className="z-legal-gate-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="z-legal-notice-heading"
+    >
+      <div className="z-legal-gate-backdrop" onClick={(e) => e.stopPropagation()} />
+      <div className="z-legal-gate-card">
+        {/* Panda Globe Logo */}
+        <div className="z-legal-logo-wrap">
           <img
             src="/images/globe-panda.png"
             alt="ZPHC Globe Panda"
-            width={180}
-            height={150}
+            className="z-legal-logo-img"
+            width={120}
+            height={100}
           />
         </div>
 
         {/* Title */}
-        <h2 className="zphc-modal-title" id="legal-notice-title">
-          Terms &amp; Conditions Disclaimer
+        <h2 className="z-legal-heading" id="z-legal-notice-heading">
+          Legal Notice &amp; Cookie Preferences
         </h2>
-        <p className="zphc-modal-subtitle">
-          PLEASE READ THIS TEXT CAREFULLY IN ITS ENTIRETY. IT AFFECTS YOUR LEGAL RIGHTS AND OBLIGATIONS.
+
+        {/* Primary notice text */}
+        <p className="z-legal-notice-p">
+          ZPHC<sup>&reg;</sup> uses this notice to provide required legal, privacy, age-confirmation, and cookie-related information. By continuing, you confirm that you meet the applicable age and jurisdictional requirements, agree to the website access terms, and understand that this website provides informational, brand, product, educational, training, and community-related content only.
         </p>
 
-        <div className="zphc-modal-divider" />
+        {/* Optional cookies note */}
+        <p className="z-legal-notice-p">
+          Optional cookies are disabled unless you choose to enable them. You may manage or reject non-essential cookies at any time.
+        </p>
 
-        {/* Scrollable Terms Content */}
-        <div className="zphc-modal-scroll-area">
-          <p className="zphc-modal-lead">
-            The information provided on this website is for general information, brand presentation, product
-            presentation and educational purposes only.
-          </p>
-          <p>
-            Visitors and users of this website agree to access and use ZPHC<sup>&reg;</sup> content at their
-            own discretion and risk. ZPHC<sup>&reg;</sup>, their owners, operators, contributors, affiliated
-            parties, service providers and representatives do not guarantee that any information, image, product
-            reference, team media, external reference, article or communication is complete, current,
-            error-free, suitable for a specific purpose, legally available in a particular jurisdiction, or
-            appropriate for any personal, commercial, medical, training or regulatory decision.
-          </p>
-          <p>
-            By entering this website, you confirm and agree that you are responsible for complying with the
-            laws, rules and regulations applicable in your country, region, sport federation, workplace,
-            profession and personal circumstances. This website does not invite, encourage or authorize unlawful
-            activity, prohibited conduct, unsafe training, medical self-treatment, misuse of products,
-            unauthorized distribution, infringement of third-party rights, or reliance on informal information
-            where professional advice is required.
-          </p>
-
-          <ol className="zphc-modal-list">
-            <li>
-              You are at least twenty-one (21) years of age, or you are of the legal age required to access this
-              type of content in your jurisdiction, whichever is higher.
-            </li>
-            <li>
-              You are not accessing the website from a jurisdiction, organization, network or situation where such
-              access, viewing, communication or use is restricted, unlawful, prohibited or otherwise inappropriate.
-            </li>
-            <li>
-              You have not previously been suspended, removed, blocked or restricted from this website or related
-              online services.
-            </li>
-            <li>
-              You agree that your use of this website and any communication with ZPHC<sup>&reg;</sup> must comply
-              with applicable law, intellectual-property rules, data-protection rules, sport rules and platform
-              rules.
-            </li>
-            <li>
-              You accept that all ZPHC<sup>&reg;</sup> names, logos, graphics, photographs, videos, product
-              images, page layouts, written content, icons, code, design elements and related materials are
-              protected to the fullest extent permitted by law. ZPHC<sup>&reg;</sup> is a registered trademark
-              and has been registered for many years.
-            </li>
-            <li>
-              You must not copy, scrape, republish, sell, reverse engineer, misuse, attack, overload, bypass,
-              impersonate, misrepresent, defame, tamper with, or otherwise damage any part of this website, its
-              systems, its data, its media, its contact form, its legal notices or its protected materials.
-            </li>
-            <li>
-              You understand that health, training, rehabilitation, nutrition, anti-doping and product
-              information on this website is educational only and is not medical advice, legal advice, commercial
-              specification, professional diagnosis, treatment, prescription, guarantee, invitation or regulatory
-              clearance.
-            </li>
-          </ol>
-
-          <p className="zphc-modal-agree-note">
-            By clicking &ldquo;Agree&rdquo; and entering this website, you confirm that you have read,
-            understood and accepted these terms, the disclaimer, the privacy policy, the cookie policy and the
-            other legal notices provided on this website.
-          </p>
+        {/* Quick links row */}
+        <div className="z-legal-links-row">
+          <button
+            type="button"
+            className="z-legal-link-btn"
+            onClick={() => {
+              setShowFullNotice(true);
+              setShowCookiePrefs(false);
+            }}
+          >
+            Terms
+          </button>
+          <button
+            type="button"
+            className="z-legal-link-btn"
+            onClick={() => {
+              setShowFullNotice(true);
+              setShowCookiePrefs(false);
+            }}
+          >
+            Privacy Policy
+          </button>
+          <button
+            type="button"
+            className="z-legal-link-btn"
+            onClick={() => {
+              setShowCookiePrefs(true);
+              setShowFullNotice(false);
+            }}
+          >
+            Cookie Policy
+          </button>
+          <button
+            type="button"
+            className="z-legal-link-btn"
+            onClick={() => {
+              setShowFullNotice(true);
+              setShowCookiePrefs(false);
+            }}
+          >
+            GDPR &amp; Data Rights
+          </button>
+          <button
+            type="button"
+            className="z-legal-link-btn"
+            onClick={() => {
+              setShowFullNotice(true);
+              setShowCookiePrefs(false);
+            }}
+          >
+            Disclaimer
+          </button>
         </div>
 
-        <p className="zphc-modal-warning">
-          IF YOU DISAGREE WITH ANYTHING STATED ABOVE, PLEASE LEAVE IMMEDIATELY!
-        </p>
+        {/* Expandable Full Legal Notice Section */}
+        {showFullNotice && (
+          <div className="z-legal-expandable-box">
+            <h3 className="z-legal-subhead">Terms &amp; Conditions Disclaimer</h3>
+            <p className="z-legal-expandable-text">
+              The information provided on this website is for general information, brand presentation, product presentation and educational purposes only.
+            </p>
+            <p className="z-legal-expandable-text">
+              Visitors and users of this website agree to access and use ZPHC<sup>&reg;</sup> content at their own discretion and risk. ZPHC<sup>&reg;</sup> does not guarantee that any information, image, product reference, team media, external reference, article or communication is complete, current, error-free, suitable for a specific purpose, or appropriate for any personal, commercial, medical, training or regulatory decision.
+            </p>
+            <ol className="z-legal-expandable-list">
+              <li>You are at least twenty-one (21) years of age, or you are of the legal age required to access this type of content in your jurisdiction, whichever is higher.</li>
+              <li>You are not accessing the website from a jurisdiction or network where such access or use is restricted, unlawful, or prohibited.</li>
+              <li>You accept that all ZPHC<sup>&reg;</sup> names, logos, graphics, photographs, product images and design elements are protected registered trademarks and copyrighted material.</li>
+              <li>You understand that health, training, rehabilitation, nutrition, and anti-doping information on this website is educational only and is not medical advice, prescription, or regulatory clearance.</li>
+            </ol>
+            <button
+              type="button"
+              className="z-legal-collapse-btn"
+              onClick={() => setShowFullNotice(false)}
+            >
+              Hide Full Notice
+            </button>
+          </div>
+        )}
 
-        <div className="zphc-modal-divider" />
+        {/* Expandable Cookie Preferences Section */}
+        {showCookiePrefs && (
+          <div className="z-legal-expandable-box">
+            <h3 className="z-legal-subhead">Cookie Preferences</h3>
+            <div className="z-cookie-pref-row">
+              <div>
+                <strong>Essential Website Cookies</strong>
+                <p>Required for security, navigation, language routing and verification.</p>
+              </div>
+              <span className="z-cookie-status-badge">Always Active</span>
+            </div>
+            <div className="z-cookie-pref-row">
+              <div>
+                <strong>Performance &amp; Analytics Cookies</strong>
+                <p>Anonymized telemetry to help us measure site performance.</p>
+              </div>
+              <label className="z-cookie-switch-label">
+                <input
+                  type="checkbox"
+                  checked={optionalCookies}
+                  onChange={(e) => setOptionalCookies(e.target.checked)}
+                />
+                <span className="z-cookie-switch-text">{optionalCookies ? 'Enabled' : 'Disabled'}</span>
+              </label>
+            </div>
+            <div className="z-cookie-pref-actions">
+              <button
+                type="button"
+                className="z-cookie-save-btn"
+                onClick={handleSaveCookiePrefs}
+              >
+                Save Preferences
+              </button>
+              <button
+                type="button"
+                className="z-legal-collapse-btn"
+                onClick={() => setShowCookiePrefs(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
 
-        {/* Action Buttons */}
-        <div className="zphc-modal-actions">
+        {/* Age & Jurisdiction Confirmation Checkbox Card */}
+        <div
+          className={`z-legal-confirm-card ${isAgeConfirmed ? 'is-checked' : ''}`}
+          onClick={() => setIsAgeConfirmed(!isAgeConfirmed)}
+        >
+          <input
+            type="checkbox"
+            id="z-legal-age-checkbox"
+            className="z-legal-checkbox"
+            checked={isAgeConfirmed}
+            onChange={(e) => setIsAgeConfirmed(e.target.checked)}
+            onClick={(e) => e.stopPropagation()}
+            aria-label="Confirm age requirement"
+          />
+          <label
+            htmlFor="z-legal-age-checkbox"
+            className="z-legal-confirm-label"
+            onClick={(e) => e.stopPropagation()}
+          >
+            I confirm that I meet the applicable age requirement and that I am permitted to access this website under the laws and regulations of my jurisdiction.
+          </label>
+        </div>
+
+        {/* Action Buttons Stack */}
+        <div className="z-legal-actions-stack">
+          {/* 1. Primary Red Pill Button */}
           <button
             type="button"
-            className="zphc-btn-pill zphc-btn-agree"
-            onClick={onAccept}
+            className="z-legal-btn-primary"
+            onClick={handleAccept}
           >
-            <span>Agree</span>
+            Accept Required Terms and Continue
           </button>
 
-          <p className="zphc-choice-txt">The choice is yours</p>
-
+          {/* 2. Secondary Blue Pill: Manage Cookies */}
           <button
             type="button"
-            className="zphc-btn-pill zphc-btn-disagree"
-            onClick={onDisagree}
+            className="z-legal-btn-secondary"
+            onClick={() => {
+              setShowCookiePrefs(!showCookiePrefs);
+              setShowFullNotice(false);
+            }}
           >
-            <span>Disagree</span>
+            Manage Cookies
+          </button>
+
+          {/* 3. Secondary Blue Pill: Read Full Legal Notice */}
+          <button
+            type="button"
+            className="z-legal-btn-secondary"
+            onClick={() => {
+              setShowFullNotice(!showFullNotice);
+              setShowCookiePrefs(false);
+            }}
+          >
+            {showFullNotice ? 'Close Legal Notice' : 'Read Full Legal Notice'}
           </button>
         </div>
       </div>

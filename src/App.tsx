@@ -15,7 +15,14 @@ export const App: React.FC = () => {
     return window.location.pathname || '/';
   });
 
-  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalModalOpen, setLegalModalOpen] = useState<boolean>(() => {
+    try {
+      const accepted = localStorage.getItem('zphc_legal_accepted');
+      return !accepted;
+    } catch {
+      return true;
+    }
+  });
 
   useEffect(() => {
     const handlePopState = () => {
@@ -34,11 +41,15 @@ export const App: React.FC = () => {
   };
 
   const handleAcceptLegal = () => {
+    try {
+      localStorage.setItem('zphc_legal_accepted', 'true');
+    } catch {
+      // Ignore localStorage errors
+    }
     setLegalModalOpen(false);
   };
 
   const handleDisagreeLegal = () => {
-    alert('You have chosen to disagree. In accordance with policy, please close this browser tab.');
     setLegalModalOpen(false);
   };
 

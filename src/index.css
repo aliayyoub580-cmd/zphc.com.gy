@@ -124,38 +124,73 @@ a {
 /* 21 Country Grid (3 rows x 7 cols) */
 .zphc-country-grid {
   display: grid;
-  grid-template-columns: repeat(7, 26px);
-  grid-gap: 4px;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  max-width: 250px;
+  gap: 6px;
+  justify-items: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .zphc-country-circle {
-  width: 26px;
-  height: 26px;
+  position: relative;
+  width: 100%;
+  max-width: 32px;
+  aspect-ratio: 1 / 1;
+  height: auto;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(44, 97, 150, 0.35);
-  color: var(--color-primary);
-  font-size: 11px;
-  font-weight: 700;
+  background: #ffffff;
+  border: 1px solid rgba(44, 97, 150, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.15s ease;
+  box-shadow: 0 1.5px 3.5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
   padding: 0;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 3D Glossy sphere effect overlay matching reference design */
+.zphc-country-circle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: 
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.28) 38%, rgba(255, 255, 255, 0) 62%),
+    radial-gradient(circle at 50% 92%, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0) 42%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.75), inset 0 -1px 2px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
 }
 
 .zphc-country-circle:hover {
-  transform: translateY(-1px);
-  background: #ffffff;
-  border-color: var(--color-primary);
+  transform: translateY(-1.5px) scale(1.12);
+  box-shadow: 0 4px 10px rgba(44, 97, 150, 0.3), 0 2px 4px rgba(0, 0, 0, 0.16);
+  border-color: rgba(44, 97, 150, 0.7);
+  z-index: 2;
 }
 
 .zphc-country-circle.is-active {
-  background: var(--color-primary);
-  color: #ffffff;
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px #2c6196, 0 3px 8px rgba(44, 97, 150, 0.4);
+  border-color: #2c6196;
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+.zphc-flag-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 /* --- Center: Navigation Bar & Status Chips --- */
@@ -1232,42 +1267,47 @@ a {
   .zphc-header-left {
     order: 1 !important;
     width: 100% !important;
+    max-width: 375px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    margin-bottom: 14px !important;
+    margin: 0 auto 16px !important;
   }
 
   .zphc-logo-link {
-    margin: 0 auto 10px !important;
+    margin: 0 auto 12px !important;
     display: block !important;
     text-align: center !important;
   }
 
   .zphc-brand-logo {
-    height: 38px !important;
+    height: 40px !important;
     width: auto !important;
     margin: 0 auto !important;
   }
 
   .zphc-country-grid {
     display: grid !important;
-    grid-template-columns: repeat(7, 26px) !important;
-    grid-gap: 4px !important;
-    justify-content: center !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    width: 100% !important;
+    max-width: 375px !important;
+    gap: 8px !important;
+    justify-items: center !important;
+    align-items: center !important;
     margin: 0 auto !important;
+    box-sizing: border-box !important;
+    padding: 0 2px !important;
   }
 
   .zphc-country-circle {
-    width: 26px !important;
-    height: 26px !important;
+    width: 100% !important;
+    max-width: 44px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
     border-radius: 50% !important;
-    font-size: 11px !important;
-    font-weight: 700 !important;
-    border: 1px solid rgba(44, 97, 150, 0.35) !important;
-    background: rgba(255, 255, 255, 0.75) !important;
-    color: var(--color-primary) !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(44, 97, 150, 0.25) !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.14), 0 1px 2px rgba(0, 0, 0, 0.08) !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
@@ -1286,7 +1326,7 @@ a {
   .zphc-navbar-pill {
     display: block !important;
     width: 100% !important;
-    max-width: 342px !important;
+    max-width: 375px !important;
     margin: 0 auto !important;
     padding: 10px 12px !important;
     border-radius: 999px !important;
@@ -1443,7 +1483,7 @@ a {
     border-radius: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    max-width: 360px !important;
+    max-width: 375px !important;
     min-height: auto !important;
     box-shadow: none !important;
     box-sizing: border-box !important;
@@ -1589,14 +1629,17 @@ a {
 
 @media (max-width: 400px) {
   .zphc-country-grid {
-    grid-template-columns: repeat(7, 23px) !important;
-    grid-gap: 3px !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+    padding: 0 2px !important;
   }
 
   .zphc-country-circle {
-    width: 23px !important;
-    height: 23px !important;
-    font-size: 9.5px !important;
+    width: 100% !important;
+    max-width: 40px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
   }
 
   .zphc-navbar-pill {
@@ -2370,3 +2413,430 @@ a {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   AUTHENTIC LEGAL NOTICE & COOKIE PREFERENCES POPUP (1:1 PIXEL MATCH)
+   ========================================================================== */
+
+.z-legal-gate-overlay {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+/* Desktop: Bottom-left floating card with full view of website behind */
+@media (min-width: 768px) {
+  .z-legal-gate-overlay {
+    left: 20px;
+    bottom: 20px;
+    width: 490px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .z-legal-gate-backdrop {
+    display: none;
+  }
+
+  .z-legal-gate-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow:
+      0 16px 45px rgba(10, 30, 60, 0.28),
+      0 0 0 1px rgba(44, 97, 150, 0.15);
+    padding: 24px 22px 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(44, 97, 150, 0.4) transparent;
+  }
+}
+
+/* Mobile: Full-width bottom modal starting 20% from top */
+@media (max-width: 767px) {
+  .z-legal-gate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .z-legal-gate-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 25, 45, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .z-legal-gate-card {
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.35);
+    width: 100%;
+    max-width: 100%;
+    height: 80vh;
+    height: 80dvh;
+    max-height: 80vh;
+    max-height: 80dvh;
+    margin: 0;
+    padding: 20px 16px 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(44, 97, 150, 0.4) transparent;
+  }
+}
+
+.z-legal-gate-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.z-legal-gate-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.z-legal-gate-card::-webkit-scrollbar-thumb {
+  background-color: rgba(44, 97, 150, 0.35);
+  border-radius: 4px;
+}
+
+.z-legal-logo-wrap {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.z-legal-logo-img {
+  width: 110px;
+  height: auto;
+  max-height: 90px;
+  object-fit: contain;
+  display: block;
+}
+
+.z-legal-heading {
+  font-size: 21px;
+  font-weight: 900;
+  color: #275c91;
+  letter-spacing: -0.2px;
+  margin: 0 0 12px 0;
+  line-height: 1.25;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .z-legal-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+}
+
+.z-legal-notice-p {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #275c91;
+  line-height: 1.45;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.z-legal-notice-p sup {
+  font-size: 8px;
+  top: -0.4em;
+}
+
+.z-legal-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  margin: 10px 0 14px;
+  width: 100%;
+}
+
+.z-legal-link-btn {
+  background: transparent;
+  border: none;
+  padding: 2px 4px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #275c91;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.15s ease, opacity 0.15s ease;
+  font-family: inherit;
+}
+
+.z-legal-link-btn:hover {
+  color: #173d63;
+  opacity: 0.85;
+}
+
+.z-legal-link-btn:focus-visible {
+  outline: 2px solid #275c91;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Age Confirmation Box */
+.z-legal-confirm-card {
+  width: 100%;
+  background: #f4f8fc;
+  border: 1px solid rgba(39, 92, 145, 0.16);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 4px 0 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.z-legal-confirm-card:hover {
+  background: #edf5fc;
+  border-color: rgba(39, 92, 145, 0.28);
+}
+
+.z-legal-confirm-card.is-checked {
+  background: #e9f3fc;
+  border-color: #275c91;
+}
+
+.z-legal-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  accent-color: #8b262d;
+  cursor: pointer;
+}
+
+.z-legal-confirm-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #275c91;
+  line-height: 1.45;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Action Buttons Stack */
+.z-legal-actions-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.z-legal-btn-primary {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #992830 0%, #852026 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(133, 32, 38, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+}
+
+.z-legal-btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(133, 32, 38, 0.45);
+}
+
+.z-legal-btn-primary:active {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
+
+.z-legal-btn-secondary {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 999px;
+  position: relative;
+  background:
+    radial-gradient(90% 120% at 50% -20%, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.12) 35%, rgba(40, 80, 130, 0) 70%),
+    linear-gradient(180deg, #4a7aa9 0%, #33618f 45%, #234c76 100%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(35, 76, 118, 0.3);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+}
+
+.z-legal-btn-secondary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(35, 76, 118, 0.42);
+}
+
+.z-legal-btn-secondary:active {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
+
+/* Expandable content sections */
+.z-legal-expandable-box {
+  width: 100%;
+  text-align: left;
+  background: #f0f6fc;
+  border: 1px solid #d4e3f2;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.z-legal-subhead {
+  font-size: 15px;
+  font-weight: 800;
+  color: #275c91;
+  margin: 0 0 8px 0;
+}
+
+.z-legal-expandable-text {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #244b73;
+  margin: 0 0 8px 0;
+}
+
+.z-legal-expandable-list {
+  padding-left: 18px;
+  margin: 8px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #244b73;
+}
+
+.z-legal-collapse-btn {
+  background: #ffffff;
+  border: 1px solid #c2d7ec;
+  color: #275c91;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.z-legal-collapse-btn:hover {
+  background: #e2effa;
+  border-color: #275c91;
+}
+
+.z-cookie-pref-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #dde7f2;
+}
+
+.z-cookie-pref-row:last-of-type {
+  border-bottom: none;
+}
+
+.z-cookie-pref-row strong {
+  display: block;
+  font-size: 12.5px;
+  color: #1a3e63;
+}
+
+.z-cookie-pref-row p {
+  font-size: 11px;
+  color: #486a8c;
+  margin: 2px 0 0;
+}
+
+.z-cookie-status-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #275c91;
+  background: #e4eff8;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.z-cookie-switch-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.z-cookie-switch-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: #275c91;
+}
+
+.z-cookie-pref-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.z-cookie-save-btn {
+  background: #275c91;
+  color: #ffffff;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s ease;
+}
+
+.z-cookie-save-btn:hover {
+  background: #1e4975;
+}

@@ -23,7 +23,7 @@ const COUNTRIES: CountryFlagItem[] = [
   { code: 'SA', name: 'العربية', lang: 'ar', path: '/ar/' },
   { code: 'IR', name: 'فارسی', lang: 'fa', path: '/fa/' },
   { code: 'IL', name: 'עברית', lang: 'he', path: '/he/' },
-  { code: 'TN', name: 'हिन्दी', lang: 'hi', path: '/hi/' },
+  { code: 'IN', name: 'हिन्दी', lang: 'hi', path: '/hi/' },
   // Row 3
   { code: 'PK', name: 'اردو', lang: 'ur', path: '/ur/' },
   { code: 'JP', name: '日本語', lang: 'ja', path: '/ja/' },
@@ -52,7 +52,14 @@ export const LanguageFlags: React.FC = () => {
             aria-label={`${item.code} - ${item.name}`}
             onClick={() => setLanguage(item.lang)}
           >
-            <span>{item.code}</span>
+            <img
+              src={`/images/flags/${item.code.toLowerCase()}.svg`}
+              alt={item.name}
+              className="zphc-flag-img"
+              width={28}
+              height={28}
+              loading="lazy"
+            />
           </button>
         );
       })}
