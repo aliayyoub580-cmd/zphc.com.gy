@@ -87,21 +87,21 @@ export const VisitorStatus: React.FC = () => {
       <div className="zphc-metric-row zphc-metric-welcome-row">
         <span className="zphc-chip-welcome">{t.status.welcomeAgain}</span>
         <span className="zphc-chip-info zphc-chip-country">
-          {t.status.deviceCountry}: <strong>{visitorData.country}</strong> &middot; {visitorData.region} / {visitorData.offset}
+          <strong>{t.status.deviceCountry}: {visitorData.country}</strong> &middot; {visitorData.region} / <strong>{visitorData.offset}</strong>
         </span>
       </div>
 
       {/* Row 2: On site & Device time */}
       <div className="zphc-metric-row">
         <span className="zphc-chip-info zphc-chip-time">
-          {t.status.onSite}: <strong>{formatDuration(secondsOnSite)}</strong> &middot; {t.status.deviceTime}: <strong>{deviceTimeStr}</strong>
+          {t.status.onSite}: {formatDuration(secondsOnSite)} &middot; {t.status.deviceTime}: {deviceTimeStr}
         </span>
       </div>
 
       {/* Row 3: Last visit info */}
       <div className="zphc-metric-row">
         <span className="zphc-chip-info zphc-chip-last-visit">
-          {t.status.lastVisit}: <strong>Oct 4, 2026, 5:37 PM</strong> &middot; {t.status.previousStay}: <strong>00:51</strong>
+          <strong>{t.status.lastVisit}: Oct 6, 2026, 7:57 PM</strong> &middot; <strong>{t.status.previousStay}: 09:22</strong>
         </span>
       </div>
     </div>

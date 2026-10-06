@@ -1,6 +1,26 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
+const renderFormattedText = (text: string) => {
+  if (!text) return null;
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const inner = part.slice(2, -2);
+      if (inner.includes('®')) {
+        const [brand, rest] = inner.split('®');
+        return (
+          <strong key={i}>
+            {brand}<span className="reg-mark">&reg;</span>{rest}
+          </strong>
+        );
+      }
+      return <strong key={i}>{inner}</strong>;
+    }
+    return part;
+  });
+};
+
 export const MainContent: React.FC = () => {
   const { t } = useLanguage();
 
@@ -33,7 +53,7 @@ export const MainContent: React.FC = () => {
 
         {/* Body Paragraphs */}
         <div className="zphc-prose">
-          <p>{t.main.p1}</p>
+          <p>{renderFormattedText(t.main.p1)}</p>
           <p>{t.main.p2}</p>
           <p>{t.main.p3}</p>
           <p>{t.main.p4}</p>
